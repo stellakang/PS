@@ -16,7 +16,7 @@ easy/medium/hard 각각 100문제씩 풀기
 
 ### 4. 트리와 그래프  
 
-1) 트리  
+1) [트리](https://github.com/stellakang/leetcode/blob/master/tree.md)    
 
 2) [그래프](https://github.com/stellakang/leetcode/blob/master/graph.md)    
 
