@@ -89,7 +89,7 @@ int moveUntilStop(Position &r, Position &b, Move m){
         return 1;
     return 0;
 }
-//move to given direction at each iteration recursively 
+//move in the given direction at each iteration recursively 
 int run(Position r, Position b, int iteration, int direction){
     if(iteration>10)return -1;
     int dx[4]={-1,0,1,0};
@@ -100,7 +100,7 @@ int run(Position r, Position b, int iteration, int direction){
     if(move==-1) return -1;
     
     int minIteration=0xfffffff;
-    int nextStep[2];
+    int nextStep[2];//only check two directions further 
     nextStep[0]=run(r,b,iteration+1,(direction+1)%4);
     nextStep[1]=run(r,b,iteration+1,(direction+3)%4);
     for(int i=0;i<2;i++){
