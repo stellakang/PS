@@ -4,10 +4,15 @@ using namespace std;
 struct Position{
     int x,y;
 };
+struct Move{
+    int xmove,ymove;
+};
 
-int moveBeads(int N, int M, Position r, Position b, int iters, int direction);
-void updatePosition(int &x, int &y, int xmove, int ymove);
-bool isEqual(int x1, int y1, int x2, int y2);
+void updatePosition(Position &p, Move m);
+bool isInFrontOf(Position p1, Position p2, Move m);
+bool moveOneStep(Position &r, Position &b, Move m);
+int moveUntilStop(Position &r, Position &b, Move m);
+int run(Position r, Position b, int iters, int direction);
 
 char** board;
 
@@ -29,11 +34,10 @@ int main(int argc, const char * argv[]) {
                 b={i,j};
         }
     }
-
     int answer=0xfffffff;
     for(int i=0;i<4;i++){
-        int num=moveBeads(N,M,r,b,1,i);
-        if(num!=-1 && num<answer)
+        int num=run(r,b,1,i);
+        if(num!=-1 && answer>num)
             answer=num;
     }
     if(answer==0xfffffff)
@@ -41,67 +45,60 @@ int main(int argc, const char * argv[]) {
     cout<<answer<<endl;
     return 0;
 }
-void updatePosition(int &x, int &y, int xmove, int ymove){
-    x+=xmove;
-    y+=ymove;
+void updatePosition(Position &p, Move m){
+    p.x+=m.xmove;
+    p.y+=m.ymove;
 }
-bool isEqual(int x1, int y1, int x2, int y2){
-    return (x1==x2) && (y1==y2);
+bool isInFrontOf(Position p1, Position p2, Move m){
+    return (p1.x==p2.x + m.xmove) && (p1.y==p2.y+m.ymove);
 }
-int moveBeads(int N, int M, Position r, Position b, int iters, int direction){
-    if(iters>10)return -1;
+bool moveOneStep(Position &r, Position &b, Move m){
+    char red=board[r.x][r.y];
+    char redMove=board[r.x+m.xmove][r.y+m.ymove];
+    char blueMove=board[b.x+m.xmove][b.y+m.ymove];
     
+    if((red=='O' || redMove=='#') && blueMove=='#')return false;
+    if(red!='O' && redMove=='#' && isInFrontOf(r,b,m))return false;
+    if(red!='O' && blueMove=='#' && isInFrontOf(b,r,m))return false;
+    
+    if(red=='O' || redMove=='#')
+        updatePosition(b,m);
+    else if(blueMove=='#')
+        updatePosition(r,m);
+    else{
+        updatePosition(r,m);
+        updatePosition(b,m);
+    }
+    return true;
+}
+int moveUntilStop(Position &r, Position &b, Move m){
+    bool isRedInHole=false;
+    while(moveOneStep(r,b,m)){
+        if(board[b.x][b.y]=='O')return -1;
+        if(board[r.x][r.y]=='O')
+            isRedInHole=true;
+    }
+    if(isRedInHole)
+        return 1;
+    return 0;
+}
+int run(Position r, Position b, int iteration, int direction){
+    if(iteration>10)return -1;
     int dx[4]={-1,0,1,0};
     int dy[4]={0,1,0,-1};
-    int xmove=dx[direction];
-    int ymove=dy[direction];
     
-    bool isRedInHole=false;
-    bool redStop=false,blueStop=false;
-    while(true){
-        if(!redStop && board[r.x+xmove][r.y+ymove]=='#')
-            redStop=true;
-        if(!blueStop && board[b.x+xmove][b.y+ymove]=='#')
-            blueStop=true;
-        
-        if(redStop && blueStop)
-            break;
-        else if(redStop){
-            if(isEqual(r.x,r.y,b.x+xmove,b.y+ymove))
-                blueStop=true;
-            else
-                updatePosition(b.x, b.y, xmove, ymove);
-        }
-        else if(blueStop){
-            if(isEqual(b.x,b.y,r.x+xmove,r.y+ymove))
-                redStop=true;
-            else
-                updatePosition(r.x, r.y, xmove, ymove);
-        }
-        else{
-            updatePosition(r.x, r.y, xmove, ymove);
-            updatePosition(b.x, b.y, xmove, ymove);
-        }
-        if(board[b.x][b.y]=='O')return -1;
-        if(isRedInHole==false && board[r.x][r.y]=='O'){
-            isRedInHole=true;
-            redStop=true;
-            r.x=-1;
-            r.y=-1;
-        }
-    }
-    if(isRedInHole)return iters;
-
-    int iteration=0xfffffff;
+    int move = moveUntilStop(r,b,{dx[direction],dy[direction]});
+    if(move==1) return iteration;
+    if(move==-1) return -1;
+    
+    int minIteration=0xfffffff;
     int nextStep[2];
-    nextStep[0]=moveBeads(N,M,r,b,iters+1,(direction+1)%4);
-    nextStep[1]=moveBeads(N,M,r,b,iters+1,(direction+3)%4);
+    nextStep[0]=run(r,b,iteration+1,(direction+1)%4);
+    nextStep[1]=run(r,b,iteration+1,(direction+3)%4);
     for(int i=0;i<2;i++){
-        if(nextStep[i]!=-1 && iteration>nextStep[i])
-            iteration=nextStep[i];
+        if(nextStep[i]!=-1 && minIteration>nextStep[i])
+            minIteration=nextStep[i];
     }
-    if(iteration==0xfffffff)return -1;
-    return iteration;
+    if(minIteration==0xfffffff)return -1;
+    return minIteration;
 }
-
-
