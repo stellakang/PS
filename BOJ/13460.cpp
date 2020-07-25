@@ -1,9 +1,11 @@
 #include <iostream>
 using namespace std;
 
+//save red, blue position
 struct Position{
     int x,y;
 };
+//set direction
 struct Move{
     int xmove,ymove;
 };
@@ -34,6 +36,7 @@ int main(int argc, const char * argv[]) {
                 b={i,j};
         }
     }
+    //search for 4 directions at first and print answer
     int answer=0xfffffff;
     for(int i=0;i<4;i++){
         int num=run(r,b,1,i);
@@ -45,13 +48,16 @@ int main(int argc, const char * argv[]) {
     cout<<answer<<endl;
     return 0;
 }
+//update position based on structure m
 void updatePosition(Position &p, Move m){
     p.x+=m.xmove;
     p.y+=m.ymove;
 }
+//to check whether p1 is in front of p2 or not
 bool isInFrontOf(Position p1, Position p2, Move m){
     return (p1.x==p2.x + m.xmove) && (p1.y==p2.y+m.ymove);
 }
+//whether moving one step is possible or not 
 bool moveOneStep(Position &r, Position &b, Move m){
     char red=board[r.x][r.y];
     char redMove=board[r.x+m.xmove][r.y+m.ymove];
@@ -71,6 +77,7 @@ bool moveOneStep(Position &r, Position &b, Move m){
     }
     return true;
 }
+//move red and blue beads until they stops
 int moveUntilStop(Position &r, Position &b, Move m){
     bool isRedInHole=false;
     while(moveOneStep(r,b,m)){
@@ -82,6 +89,7 @@ int moveUntilStop(Position &r, Position &b, Move m){
         return 1;
     return 0;
 }
+//move to given direction at each iteration recursively 
 int run(Position r, Position b, int iteration, int direction){
     if(iteration>10)return -1;
     int dx[4]={-1,0,1,0};
