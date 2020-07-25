@@ -1,22 +1,27 @@
 #include <iostream>
 using namespace std;
 
-char** board;
 struct Position{
     int xpos,ypos;
 };
 
 int move(int N, int M, Position r, Position b, int iters, int direction);
 void updatePosition(int &x, int &y, int xmove, int ymove);
+bool isEqual(int x1, int y1, int x2, int y2);
+
+char** board;
+
 int main(int argc, const char * argv[]) {
     int N,M;
     scanf("%d%d",&N,&M);
-    board=new char*[N];
+    
+    board = new char*[N];
     for(int i=0;i<N;i++)
         board[i]=new char[M];
     
     char tmp;
     scanf("%c",&tmp);
+    
     Position r,b;
     for(int i=0;i<N;i++){
         scanf("%s",board[i]);
@@ -107,6 +112,7 @@ int move(int N, int M, Position r, Position b, int iters, int direction){
     r.ypos=ry;
     b.xpos=bx;
     b.ypos=by;
+    
     int iteration=0xfffffff;
     int nextStep[2];
     nextStep[0]=move(N,M,r,b,iters+1,(direction+1)%4);
