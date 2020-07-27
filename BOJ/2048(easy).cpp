@@ -43,9 +43,8 @@ public:
 int run(int N, int block[21][21], int iteration);
 int move(int N, int block[21][21], int iteration, int direction);
 int toLeft(int N, int block[21][21]);
-int toRight(int N, int block[21][21]);
-int toUp(int N, int block[21][21]);
-int toDown(int N, int block[21][21]);
+int toRightOrLeft(int N, int block[21][21], int start, int dj);
+int toUpOrDown(int N, int block[21][21], int start, int dj);
 void copyArray(int N, int copy[21][21], int block[21][21]);
 int findMaxNum(int N, int block[21][21]);
 
@@ -79,13 +78,13 @@ int move(int N, int block[21][21], int iteration, int direction){
     int num=0;
     //move block in the given direction
     if(direction==0)
-        num = toLeft(N, block);
+        num = toRightOrLeft(N, block, 0, 1);//left
     else if(direction==1)
-        num = toRight(N, block);
+        num = toRightOrLeft(N, block, N-1, -1);//right
     else if(direction==2)
-        num = toUp(N, block);
+        num = toUpOrDown(N, block, 0, 1);//up
     else if(direction==3)
-        num = toDown(N, block);
+        num = toUpOrDown(N, block, N-1, -1);//down
     if(maxNum<num)
         maxNum=num;
     //next iteration
@@ -108,109 +107,69 @@ void copyArray(int N, int copy[21][21], int block[21][21]){
         for(int j=0;j<N;j++)
             copy[i][j]=block[i][j];
 }
-int toUp(int N, int block[21][21]){
-    Queue<int>up;
+int toUpOrDown(int N, int block[21][21], int start, int dj){
     for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++){
+        Queue<int>qu;
+        int j=start;
+        while(true){
             if(block[j][i]){
-                up.push(block[j][i]);
+                qu.push(block[j][i]);
                 block[j][i]=0;
             }
+            j+=dj;
+            if(start==0 && j==N)break;//up
+            if(start==N-1 && j==-1)break;//down
         }
         bool merge=false;
-        for(int j=0;!up.empty();){
-            int num=up.front();
-            up.pop();
-            if(j==0)
-                block[j++][i]=num;
-            else if(merge==false && block[j-1][i]==num){
+        for(int j=start;!qu.empty();){
+            int num=qu.front();
+            qu.pop();
+            if(j==start){
+                block[j][i]=num;
+                j+=dj;
+            }
+            else if(!merge && block[j-dj][i]==num){
                 merge=true;
-                block[j-1][i]+=num;
+                block[j-dj][i]+=num;
             }
             else{
                 merge=false;
-                block[j++][i]=num;
+                block[j][i]=num;
+                j+=dj;
             }
         }
     }
     return findMaxNum(N, block);
 }
-int toDown(int N, int block[21][21]){
-    Queue<int>down;
+int toRightOrLeft(int N, int block[21][21], int start, int dj){
     for(int i=0;i<N;i++){
-        for(int j=N-1;j>=0;j--){
-            if(block[j][i]){
-                down.push(block[j][i]);
-                block[j][i]=0;
-            }
-        }
-        bool merge=false;
-        for(int j=N-1;!down.empty();){
-            int num=down.front();
-            down.pop();
-            if(j==N-1)
-                block[j--][i]=num;
-            else if(!merge && block[j+1][i]==num){
-                merge=true;
-                block[j+1][i]+=num;
-            }
-            else{
-                merge=false;
-                block[j--][i]=num;
-            }
-        }
-    }
-    return findMaxNum(N, block);
-}
-int toLeft(int N, int block[21][21]){
-    Queue<int>left;
-    for(int i=0;i<N;i++){
-        for(int j=0;j<N;j++){
+        Queue<int>qu;
+        int j=start;
+        while(true){
             if(block[i][j]){
-                left.push(block[i][j]);
+                qu.push(block[i][j]);
                 block[i][j]=0;
             }
+            j+=dj;
+            if(start==0 && j==N)break;//left
+            if(start==N-1 && j==-1)break;//right
         }
         bool merge=false;
-        for(int j=0;!left.empty();){
-            int num=left.front();
-            left.pop();
-            if(j==0)
-                block[i][j++]=num;
-            else if(!merge && block[i][j-1]==num){
+        for(int j=start;!qu.empty();){
+            int num=qu.front();
+            qu.pop();
+            if(j==start){
+                block[i][j]=num;
+                j+=dj;
+            }
+            else if(!merge && block[i][j-dj]==num){
                 merge=true;
-                block[i][j-1]+=num;
+                block[i][j-dj]+=num;
             }
             else{
                 merge=false;
-                block[i][j++]=num;
-            }
-        }
-    }
-    return findMaxNum(N, block);
-}
-int toRight(int N, int block[21][21]){
-    Queue<int>right;
-    for(int i=0;i<N;i++){
-        for(int j=N-1;j>=0;j--){
-            if(block[i][j]){
-                right.push(block[i][j]);
-                block[i][j]=0;
-            }
-        }
-        bool merge=false;
-        for(int j=N-1;!right.empty();){
-            int num=right.front();
-            right.pop();
-            if(j==N-1)
-                block[i][j--]=num;
-            else if(!merge && block[i][j+1]==num){
-                merge=true;
-                block[i][j+1]+=num;
-            }
-            else{
-                merge=false;
-                block[i][j--]=num;
+                block[i][j]=num;
+                j+=dj;
             }
         }
     }
