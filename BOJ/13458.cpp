@@ -16,8 +16,7 @@ int main(){
 }
 
 long long int minimumNumOfSupervisor(int N, int arr[], int B, int C){
-    long long int supervisors=0;
-    supervisors+=N;
+    long long int supervisors=N;
     for(int i=0;i<N;i++){
         if(B>=arr[i])
             arr[i]=0;
