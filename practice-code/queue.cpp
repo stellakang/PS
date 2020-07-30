@@ -21,7 +21,7 @@ public:
         rearIndx=(rearIndx+1)%sz;
     }
     void pop(){
-        rearIndx=(rearIndx-1+sz)%sz;
+        frontIndx=(frontIndx+1)%sz;
     }
     T front(){
         return value[frontIndx];
