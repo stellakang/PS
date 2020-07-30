@@ -25,8 +25,7 @@
 
 ### 7. 객체 지향 설계  
 
-### 8. 재귀와 동적 프로그래밍  
-
+### 8. [재귀와 동적 프로그래밍](https://github.com/stellakang/PS/blob/master/recursion-and-dp.md)  
 
 ### 9. 시스템 설계 및 규모 확장성  
 
