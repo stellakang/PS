@@ -6,9 +6,9 @@
 -*자료구조*- 
 ### 1. 배열과 문자열  
 
-### 2. 연결리스트  
+### 2. [연결리스트](https://github.com/stellakang/PS/blob/master/linkedlist.md)    
 
-### 3. 스택과 큐  
+### 3. [스택과 큐](https://github.com/stellakang/PS/blob/master/stack-and-queue.md)    
 
 ### 4. 트리와 그래프  
 
