@@ -44,7 +44,7 @@ void cleaning(int N, int M, pos p, int dir){
     cleanCurrLocation(p);
     int i;
     for(i=0;i<4;i++){
-        dir = (dir-1+4)%4;
+        rotateLeft(dir);
         if(isCleanedOrWall(N,M,p,dir))continue;
         p = goOneBlock(p, dir);
         cleaning(N, M, p, dir);
