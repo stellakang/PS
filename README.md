@@ -4,7 +4,9 @@
   
   
 -*자료구조*- 
-### 1. 배열과 문자열  
+### 1. 배열과 문자열   
+1) [해시](https://github.com/stellakang/PS/blob/master/hash.md)  
+2) 문자열  
 
 ### 2. [연결리스트](https://github.com/stellakang/PS/blob/master/linkedlist.md)    
 
