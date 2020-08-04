@@ -55,22 +55,18 @@ void rotation(int num, int dir){
     }
 }
 void rotateWheel(int num, int dir){
+    int wh[8];
+    for(int i=0;i<8;i++){
+        wh[i]=wheel[num][i];
+    }
     if(dir==1){
         //rotate right
-        int wh[8];
-        for(int i=0;i<8;i++){
-            wh[i]=wheel[num][i];
-        }
         for(int i=0;i<8;i++){
             wheel[num][i]=wh[(i-1+8)%8];
         }
     }
     else if(dir==-1){
         //rotate left
-        int wh[8];
-        for(int i=0;i<8;i++){
-            wh[i]=wheel[num][i];
-        }
         for(int i=0;i<8;i++){
             wheel[num][i]=wh[(i+1)%8];
         }
