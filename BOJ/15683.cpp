@@ -39,54 +39,33 @@ void process(pos cctv[], int num, int office[][10], int area){
     }
     pos c = cctv[num];
     int number = office[c.x][c.y];
-    if(number==1){
-        for(int i=0;i<4;i++){
-            int officeCopy[10][10];
-            copyArray(officeCopy, office);
-            bool dir[4]={false,false,false,false};
-            dir[i]=true;
-            int observed = observe(officeCopy, dir, c);
-            process(cctv, num+1, officeCopy, area-observed);
-        }
-    }
-    else if(number==2){
-        for(int i=0;i<2;i++){
-            int officeCopy[10][10];
-            copyArray(officeCopy, office);
-            bool dir[4]={true,true,true,true};
-            dir[i]=false;
-            dir[(i+2)%4]=false;
-            int observed = observe(officeCopy, dir, c);
-            process(cctv, num+1, officeCopy, area-observed);
-        }
-    }
-    else if(number==3){
-        for(int i=0;i<4;i++){
-            int officeCopy[10][10];
-            copyArray(officeCopy, office);
-            bool dir[4]={true,true,true,true};
-            dir[i]=false;
-            dir[(i+1)%4]=false;
-            int observed = observe(officeCopy, dir, c);
-            process(cctv, num+1, officeCopy, area-observed);
-        }
-    }
-    else if(number==4){
-        for(int i=0;i<4;i++){
-            int officeCopy[10][10];
-            copyArray(officeCopy, office);
-            bool dir[4]={true,true,true,true};
-            dir[i]=false;
-            int observed = observe(officeCopy, dir, c);
-            process(cctv, num+1, officeCopy, area-observed);
-        }
-    }
-    else{
-        //number=5
+    for(int i=0;i<4;i++){
         int officeCopy[10][10];
         copyArray(officeCopy, office);
-        bool dir[4]={true,true,true,true};
-        int observed = observe(officeCopy, dir, c);
+        bool dir[4]={false,false,false,false};
+        if(number==1){
+            dir[i]=true;
+        }
+        else if(number==2){
+            dir[i]=true;
+            dir[(i+2)%4]=true;
+        }
+        else if(number==3){
+            dir[i]=true;
+            dir[(i+1)%4]=true;
+        }
+        else if(number==4){
+            dir[i]=true;
+            dir[(i+1)%4]=true;
+            dir[(i+2)%4]=true;
+        }
+        else{
+            dir[i]=true;
+            dir[(i+1)%4]=true;
+            dir[(i+2)%4]=true;
+            dir[(i+3)%4]=true;
+        }
+        int observed = observe(officeCopy, dir,c);
         process(cctv, num+1, officeCopy, area-observed);
     }
 }
