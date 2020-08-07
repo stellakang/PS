@@ -47,7 +47,7 @@ int dx[4] = {-1,0,0,1};
 int dy[4] = {0,-1,1,0};
 
 void initVisit(int N);
-int findFood(int N, int size);
+int findFish(int N, int size);
 void updateCurPos(int minSec, int sec, int x, int y);
 
 int main(){
@@ -67,7 +67,7 @@ int main(){
     int numFish = 0;
     while(true){
         initVisit(N);
-        int minSec = findFood(N, size);
+        int minSec = findFish(N, size);
         if(minSec!=0x7fffffff){
             sea[cur.x][cur.y] = 0;
             if(++numFish == size){
@@ -89,7 +89,7 @@ void initVisit(int N){
         }
     }
 }
-int findFood(int N, int size){
+int findFish(int N, int size){
     int minSec = 0x7fffffff;
     visit[cur.x][cur.y] = true;
     Queue<pos> qu;
