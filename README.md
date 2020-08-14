@@ -23,7 +23,7 @@
 -*개념과 알고리즘*-  
 ### 5. 비트 조작  
 
-### 6. 수학  
+### 6. [수학](https://github.com/stellakang/PS/blob/master/math.md)  
 
 ### 7. 객체 지향 설계  
 
