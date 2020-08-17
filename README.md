@@ -21,7 +21,7 @@
 
 
 -*개념과 알고리즘*-  
-### 5. 비트 조작  
+### 5. [비트 조작](https://github.com/stellakang/PS/blob/master/bitmask.md)  
 
 ### 6. [수학](https://github.com/stellakang/PS/blob/master/math.md)  
 
