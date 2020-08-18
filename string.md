@@ -15,6 +15,9 @@ char str[20];//20개 이상 받으면 20까지만 입력 받는다.
 cin.getline(str, 20);
 ```
 ```c++
+//istream 객체, string 변수의 이름, delimitChar  
+//delimitChar는 '\n'가 들어가있다.  
+//delimitChar를 만날때까지 읽어 string 변수에 저장  
 string str;
 getline(cin, str);
 ```
