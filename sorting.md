@@ -104,3 +104,9 @@ void insertion_sort(int list[], int n){
   }
 }
 ```
+
+## quick sort 퀵 정렬  
+
+## radix sort 기수 정렬  
+
+## heap sort 힙 정렬  
