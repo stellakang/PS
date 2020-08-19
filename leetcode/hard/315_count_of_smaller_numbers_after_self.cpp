@@ -1,6 +1,6 @@
 //solution1 
 //segment tree
-#define pii pair<int,int>
+typedef pii pair<int,int>;
 class Solution {
 public:
     vector<int> countSmaller(vector<int>& nums) {
