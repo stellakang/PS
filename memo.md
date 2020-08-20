@@ -14,6 +14,8 @@ vector
 - 복사본이 인자로 넘어간다.  
 - call by reference로 하기 위해서는 포인터나 참조(&)를 이용한다.  
 - erase(O(N)), insert(O(N))  
+
+
 자주하는 실수    
 - min, max값 설정 시 주의  
   max값도 음수값이 될 수 있다.  
