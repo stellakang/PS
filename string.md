@@ -27,3 +27,14 @@ getline(cin, str);
 ```c++
 int a = cin.get();
 ```
+### cf. NULL, NUL, 0, \0 차이점  
+- NULL  
+  - iostream 헤터파일에 정의되어 있는 매크로.  
+  - (void*)0 으로 정의(타입이 지정되지 않은 비어있는 포인터)   
+    -> 따라서 char* ptr = NULL은 char *ptr = 0과 같다.  
+  - 포인터 변수를 초기화할 때 사용  
+
+- NUL  
+  - 문자열의 끝을 의미하는 문자('\0')의 symbol    
+  - 아스키 값 = 0   
+  
