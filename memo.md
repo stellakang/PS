@@ -15,6 +15,12 @@ vector
 - call by reference로 하기 위해서는 포인터나 참조(&)를 이용한다.  
 - erase(O(N)), insert(O(N))  
 
+memset
+- `#include <cstring>`   
+- void * memset ( void * ptr, int value, size_t num );  
+  - ptr: 채우려는 메모리의 시작 포인터  
+  - value: 메모리에 채우고자하는 값(int 형이지만 내부에서는 unsigned char로 변환되어서 저장)    
+  - num: 채우고자 하는 바이트 수  
 
 자주하는 실수    
 - min, max값 설정 시 주의  
