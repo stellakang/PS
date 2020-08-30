@@ -26,7 +26,7 @@ ll update(vector<ll>&tree, int node, int start, int end, int index, ll val){
 }
 ll query(vector<ll>&tree, int node, int start, int end, int left, int right){
     if(right < start || end < left)return 0;
-    if(left <= start && end << right)return tree[node];
+    if(left <= start && end <= right)return tree[node];
     int mid = (start+end)/2;
     ll l = query(tree, node*2, start, mid, left, right);
     ll r = query(tree, node*2+1, mid+1, end, left, right);
