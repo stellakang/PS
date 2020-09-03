@@ -69,12 +69,13 @@ class Node{
     - 루트 노드의 원소를 제거한 후에 힙의 가장 마지막 원소를 루트 노드로 이동시킨다.  
     - 자식 노드와 크기를 비교해가면서 알맞은 자리를 찾는다.  
     - 왼쪽 원소와 오른쪽 원소 중에서 더 작은(max-heaps의 경우 큰) 원소와 교환해 나가야 특징을 만족한다.  
+- [코드](https://github.com/stellakang/PS/blob/master/practice-code/heap.cpp)
 
 ### 9. 트라이(접두사 트리)  
 - 각 노드에 문자를 저장하는 자료구조로, 각 단어의 끝은 null node라고 불리운다.  
 - 접두사를 빠르게 찾아보기 위한 방식이다.  
 - 시간복잡도: 길이가 K인 경우, O(K)  
-- 코드
+- [코드](https://github.com/stellakang/PS/blob/master/practice-code/trie2.cpp)
     
 
   

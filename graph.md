@@ -88,7 +88,7 @@
   - 해당 노드의 outbound edge를 제거한다.  
   - 위 과정을 반복한다.  
 - 시간복잡도: O(V+E)  
-- 코드
+- [코드](https://github.com/stellakang/PS/blob/master/practice-code/topological-sort.cpp)
 
 ### 2. 다익스트라 알고리즘  
 - weight가 있는 directed graph에서 두 지점 간의 최단 경로를 찾는 방법  
@@ -99,4 +99,4 @@
   - 방문한 노드를 제외하고 위 과정을 반복한다.  
   - 모든 노드를 방문하면 시작점부터 모든 노드에 대한 distance가 저장된다.  
 - 시간복잡도: O(ElogV)   
-- 코드   
+- [코드](https://github.com/stellakang/PS/blob/master/practice-code/dijkstra.cpp)   
