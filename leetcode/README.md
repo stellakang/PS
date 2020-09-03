@@ -1,4 +1,6 @@
 ## leetcode
 solutions to leetcode problems  
-easy/medium/hard 각각 100문제씩 풀기
+- [easy](./easy)  
+- [medium](./medium)  
+- [hard](./hard)
 
