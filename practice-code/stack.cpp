@@ -5,32 +5,48 @@ template<typename T>
 class Stack{
 private:
     int topIndx;
+    int capacity;
     int sz;
     T* value;
 public:
     Stack(int len=10){
         topIndx=-1;
         value=new T[len];
- 	sz=len;
+ 	capacity=len;
+	sz = 0;
     }
     ~Stack(){
         delete[] value;
     }
     void push(const T& num){
-	topIndx=(topIndx+1)%sz;
+	if(sz==capacity){
+	    cout<<"error: stack is full\n";
+	    exit(1);
+	}
+	topIndx=(topIndx+1)%capacity;
         value[topIndx]=num;
+	sz++;
     }
     void pop(){
-	topIndx=(topIndx-1+sz)%sz;
+	if(sz==0){
+	    cout<<"error: stack is empty\n";
+	    exit(1);
+	}
+	sz--;
+	topIndx=(topIndx-1+capacity)%capacity;
     }
     T top(){
+	if(sz==0){
+	    cout<<"error: stack is empty\n";
+	    exit(1);
+	}
         return value[topIndx];
     }
     int size(){
-        return topIndx+1;
+        return sz;
     }
     bool empty(){
-        return topIndx==-1;
+        return sz==0;
     }
 };
 
