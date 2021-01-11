@@ -1,29 +1,30 @@
 # 정렬 알고리즘  
 * 장단점 정리하기  
 ## bubble sort 버블 정렬  
-배열의 첫 원소부터 순차적으로 진행하며, 현재 원소가 그다음 원소의 값보다 크면 두 원소를 바꾸는 작업을 반복   
+배열의 첫 원소부터 순차적으로 진행하며, 현재 원소가 그다음 원소의 값보다 크면 두 원소를 바꾸는 작업을 반복  
+-> stable sort(안정정렬)  
+-> in-place sorting  
+
 time complexity: Best O(N^2) Avg O(N^2) Worst O(N^2)   
 space complexity: O(1)  
 ```c++
 void bubble_sort(int list[], int n){
-  int i, j, temp;
-
-  for(i=n-1; i>0; i--){
-    // 0 ~ (i-1)까지 반복
-    for(j=0; j<i; j++){
-      // j번째와 j+1번째의 요소가 크기 순이 아니면 교환
-      if(list[j]<list[j+1]){
-        temp = list[j];
-        list[j] = list[j+1];
-        list[j+1] = temp;
+  for(int i=n-1;i>0;i--){
+      for(int j=0;j<i;j++){
+          if(list[j]>list[j+1]){
+              int tmp = list[j];
+              list[j] = list[j+1];
+              list[j+1] = tmp;
+          }
       }
-    }
   }
 }
 ```
 
 ## selection sort 선택 정렬   
 가장 작은 원소를 배열 맨 앞으로 보내고 그 다음으로 작은 원소를 앞으로 보내는 과정을 반복한다.   
+-> in-place sorting  
+-> unstable sort(안정정렬)  
 time complexity: Best O(N^2) Avg O(N^2) Worst O(N^2)    
 space complexity: O(1)   
 ```c++
@@ -48,6 +49,7 @@ void selection_sort(int list[], int n){
 
 ## merge sort 병합 정렬  
 배열을 절반씩 나누어 각각을 정렬한 다음 다시 합하여 정렬하는 방법  
+-> stable sort(안정정렬)
 time complexity: Best O(NlogN) Avg O(NlogN) Worst O(NlogN)    
 space complexity: 상황에 따라 다름  
 ```c++
@@ -86,6 +88,8 @@ void merge_sort(int list[], int left, int right){
 ```
 
 ## insertion sort 삽입 정렬  
+-> stable sort  
+-> in-place sort  
 time complexity: Best O(N) Avg O(N^2) Worst O(N^2)    
 space complexity: O(1)  
 ```c++
@@ -105,8 +109,86 @@ void insertion_sort(int list[], int n){
 }
 ```
 
-## quick sort 퀵 정렬  
+## quick sort 퀵 정렬   
+-> unstable sort  
+-> in-place sort  
+time complexity: Best O(NlogN) Avg O(NlogN) Worst O(N^2)    
+space complexity: O(N)  
+```c++
+void quick_sort(int data[], int start, int end){ 
+    if(start >= end)return;
+
+    int pivot = start; 
+    int i = pivot + 1; 
+    int j = end; 
+    int temp; 
+    while(i <= j){ 
+        while(i<=end && data[i]<=data[pivot])
+            i++;
+        while(j>start && data[j]>=data[pivot])
+            j--;
+        if(i>j){
+            int tmp = data[pivot];
+            data[pivot] = data[j];
+            data[j] = tmp;
+        }
+        else{
+            int tmp = data[j];
+            data[j] = data[i];
+            data[i] = tmp;
+        }
+    } 
+    quick_sort(data, start, j-1);
+    quick_sort(data, j+1, end);
+}  
+```
 
 ## radix sort 기수 정렬  
 
 ## heap sort 힙 정렬  
+-> unstable sort  
+
+time complexity: Best O(NlogN) Avg O(NlogN) Worst O(NlogN)    
+space complexity: O(N)  
+
+```c++
+#include <iostream> 
+using namespace std;
+#define parent(x) (x-1)/2 
+
+void heap(int data[], int num){ 
+    for(int i=1; i<num; i++){ 
+        int child = i; 
+        while(child > 0){ 
+            int root = parent(child); 
+            if(data[root] < data[child]){ 
+                int temp = data[root]; 
+                data[root] = data[child]; 
+                data[child] = temp; 
+            } 
+            child = root; 
+        } 
+    } 
+} 
+
+int main(void){ 
+    int n;
+    cin>>n;
+    int data[n];
+    for(int i=0;i<n;i++){
+        cin>>data[i];
+    }
+    heap(data, n);  
+    for(int i=n-1; i>=0; i--){ 
+        int temp = data[i]; 
+        data[i] = data[0]; 
+        data[0] = temp; 
+        heap(data, i); 
+    } 
+    // 결과 출력 
+    for(int i=0; i<n; i++){ 
+        printf("%d ", data[i]); 
+    } 
+    return 0; 
+}
+```
